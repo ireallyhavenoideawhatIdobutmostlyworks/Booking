@@ -1,0 +1,211 @@
+{
+	"compiler": {
+		"version": "0.8.18+commit.87f61d96"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_roomID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_hotelID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_totalNumberOfDaysOfRoomRental",
+						"type": "uint256"
+					}
+				],
+				"name": "createReservation",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "reservation",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "city",
+								"type": "string"
+							},
+							{
+								"internalType": "enum Test.Country",
+								"name": "country",
+								"type": "uint8"
+							},
+							{
+								"internalType": "string",
+								"name": "street",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "postalCode",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "phoneNumber",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "rating",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isOpen",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Test.Hotel",
+						"name": "hotel",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "ratePerDay",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "minimumPersonAmount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "maximumPersonAmount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "hasWifi",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "hasAirConditioning",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "isAvailable",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Test.Room",
+						"name": "room",
+						"type": "tuple"
+					},
+					{
+						"internalType": "address",
+						"name": "tenant",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalNumberOfDaysOfRoomRental",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "startDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "endDate",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Test.sol": "Test"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Test.sol": {
+			"keccak256": "0x5ade32b172eb6ec684a4a2e266318ee7c33076515fa09771187c0a972b723f5c",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://cc7e3252010726402074e035baab77fd5b9510c3459548a8a98acdf82d53c068",
+				"dweb:/ipfs/QmekG4K5oQUp3rYGKwshZY4qH56pK4kN75P3whoyzJXuNf"
+			]
+		}
+	},
+	"version": 1
+}

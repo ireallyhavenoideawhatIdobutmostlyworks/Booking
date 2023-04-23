@@ -1,0 +1,231 @@
+{
+	"compiler": {
+		"version": "0.8.18+commit.87f61d96"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_roomID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_hotelID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_totalNumberOfDaysOfRoomRental",
+						"type": "uint256"
+					}
+				],
+				"name": "createReservation",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getReservations",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"components": [
+									{
+										"internalType": "uint256",
+										"name": "id",
+										"type": "uint256"
+									},
+									{
+										"internalType": "string",
+										"name": "name",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "city",
+										"type": "string"
+									},
+									{
+										"internalType": "enum Test2.Country",
+										"name": "country",
+										"type": "uint8"
+									},
+									{
+										"internalType": "string",
+										"name": "street",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "postalCode",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "phoneNumber",
+										"type": "string"
+									},
+									{
+										"internalType": "uint256",
+										"name": "rating",
+										"type": "uint256"
+									},
+									{
+										"internalType": "bool",
+										"name": "isOpen",
+										"type": "bool"
+									}
+								],
+								"internalType": "struct Test2.Hotel",
+								"name": "hotel",
+								"type": "tuple"
+							},
+							{
+								"components": [
+									{
+										"internalType": "uint256",
+										"name": "id",
+										"type": "uint256"
+									},
+									{
+										"internalType": "string",
+										"name": "name",
+										"type": "string"
+									},
+									{
+										"internalType": "uint256",
+										"name": "ratePerDay",
+										"type": "uint256"
+									},
+									{
+										"internalType": "uint256",
+										"name": "minimumPersonAmount",
+										"type": "uint256"
+									},
+									{
+										"internalType": "uint256",
+										"name": "maximumPersonAmount",
+										"type": "uint256"
+									},
+									{
+										"internalType": "bool",
+										"name": "hasWifi",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "hasAirConditioning",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "isAvailable",
+										"type": "bool"
+									}
+								],
+								"internalType": "struct Test2.Room",
+								"name": "room",
+								"type": "tuple"
+							},
+							{
+								"internalType": "address",
+								"name": "tenant",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "price",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "totalNumberOfDaysOfRoomRental",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "startDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endDate",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct Test2.Reservation[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTaxes",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "taxex",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Booking.sol": "Test2"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Booking.sol": {
+			"keccak256": "0xcd178992c1be0ca3df351fd0a917b64f77868b4f00da8f1fb82fb7c859d7ba8a",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://0f183a4fc524651c5fc2b731c3604201fbfc996e5d04af85dbbf2c8910fd6b0f",
+				"dweb:/ipfs/QmeBvu46UbAEYpq8iuSyNdBDKHPcdTRe9QqKppsuvQazXD"
+			]
+		}
+	},
+	"version": 1
+}

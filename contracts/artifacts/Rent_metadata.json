@@ -1,0 +1,45 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Reservation.sol": "Rent"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Reservation.sol": {
+			"keccak256": "0xde543a13b21862911dfeca483c4895c35e8c7feb480644de2ed2a0f2b651794e",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://9388a92439e8ee786f9d2d8c176a32be91f89226650b360499490678269c2ec5",
+				"dweb:/ipfs/QmUnZkxSV2MZ7PMDQnXUEJv2sVfe5p83dCNJJp7W8b24Mp"
+			]
+		}
+	},
+	"version": 1
+}
