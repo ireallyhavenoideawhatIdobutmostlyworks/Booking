@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-contract Test2 {
+contract Booking {
 
     enum Country {   
         POLAND, 
@@ -46,11 +46,12 @@ contract Test2 {
 
     Reservation[] private reservation;
     uint private reservationID;
+    address taxOffice;
 
 
-
-    constructor() {
+    constructor(address _taxOffice) {
         reservationID = 0; 
+        taxOffice = _taxOffice;
     }
 
     function createReservation(uint _roomID, uint _hotelID, uint _totalNumberOfDaysOfRoomRental) payable public {
@@ -72,12 +73,9 @@ contract Test2 {
         return reservation;
     }
 
-    function getTaxes() public view returns (uint taxex) {
+    function getTaxes() public view onlyTaxOffice returns (uint taxex) {
         uint income = calculateTotalIncome();
-        // dodac podatek
-        // dodac konto US
-        // dodac konto platnika czyli wlasciciela hotelu
-        return income;
+        return (income * 23) / 100;
     }
 
 
@@ -115,6 +113,12 @@ contract Test2 {
             sum += reservation[i].price;
         }
         return sum;
+    }
+
+
+     modifier onlyTaxOffice() {
+        require(msg.sender == taxOffice, "Only tax office can call this function");
+        _;
     }
 
 } 
