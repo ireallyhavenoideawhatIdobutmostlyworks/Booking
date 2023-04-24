@@ -6,122 +6,23 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_taxOffice",
+						"type": "address"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
 			{
-				"anonymous": false,
 				"inputs": [
 					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"indexed": false,
-						"internalType": "enum Booking.Country",
-						"name": "country",
-						"type": "uint8"
-					},
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "street",
-						"type": "string"
-					},
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "postalCode",
-						"type": "string"
-					},
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "phoneNumber",
-						"type": "string"
-					},
-					{
-						"indexed": false,
 						"internalType": "uint256",
-						"name": "rating",
+						"name": "_roomID",
 						"type": "uint256"
 					},
-					{
-						"indexed": false,
-						"internalType": "bool",
-						"name": "isOpen",
-						"type": "bool"
-					}
-				],
-				"name": "HotelCreated",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "price",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "minimumPersonAmount",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "maximumPersonAmount",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "bool",
-						"name": "hasWifi",
-						"type": "bool"
-					},
-					{
-						"indexed": false,
-						"internalType": "bool",
-						"name": "hasAirConditioning",
-						"type": "bool"
-					},
-					{
-						"indexed": false,
-						"internalType": "bool",
-						"name": "isAvailable",
-						"type": "bool"
-					}
-				],
-				"name": "RoomsCreated",
-				"type": "event"
-			},
-			{
-				"inputs": [
 					{
 						"internalType": "uint256",
 						"name": "_hotelID",
@@ -129,13 +30,170 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_roomID",
+						"name": "_totalNumberOfDaysOfRoomRental",
 						"type": "uint256"
 					}
 				],
-				"name": "reserveRoom",
+				"name": "createReservation",
 				"outputs": [],
 				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getReservations",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"components": [
+									{
+										"internalType": "uint256",
+										"name": "id",
+										"type": "uint256"
+									},
+									{
+										"internalType": "string",
+										"name": "name",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "city",
+										"type": "string"
+									},
+									{
+										"internalType": "enum Booking.Country",
+										"name": "country",
+										"type": "uint8"
+									},
+									{
+										"internalType": "string",
+										"name": "street",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "postalCode",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "phoneNumber",
+										"type": "string"
+									},
+									{
+										"internalType": "uint256",
+										"name": "rating",
+										"type": "uint256"
+									},
+									{
+										"internalType": "bool",
+										"name": "isOpen",
+										"type": "bool"
+									}
+								],
+								"internalType": "struct Booking.Hotel",
+								"name": "hotel",
+								"type": "tuple"
+							},
+							{
+								"components": [
+									{
+										"internalType": "uint256",
+										"name": "id",
+										"type": "uint256"
+									},
+									{
+										"internalType": "string",
+										"name": "name",
+										"type": "string"
+									},
+									{
+										"internalType": "uint256",
+										"name": "ratePerDay",
+										"type": "uint256"
+									},
+									{
+										"internalType": "uint256",
+										"name": "minimumPersonAmount",
+										"type": "uint256"
+									},
+									{
+										"internalType": "uint256",
+										"name": "maximumPersonAmount",
+										"type": "uint256"
+									},
+									{
+										"internalType": "bool",
+										"name": "hasWifi",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "hasAirConditioning",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "isAvailable",
+										"type": "bool"
+									}
+								],
+								"internalType": "struct Booking.Room",
+								"name": "room",
+								"type": "tuple"
+							},
+							{
+								"internalType": "address",
+								"name": "tenant",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "price",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "totalNumberOfDaysOfRoomRental",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "startDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endDate",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct Booking.Reservation[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTaxes",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "taxex",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -167,11 +225,11 @@
 	},
 	"sources": {
 		"contracts/Booking.sol": {
-			"keccak256": "0xfe4df85f8238ec28e2409e6f0b4c05e40f4cf4ff9a957d586a2c631b11eecf23",
+			"keccak256": "0x1fa5e7608ad7a917f1ebaebbd94940d115f6578f76f9be38f96ba62d84dc6bc8",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://11f327429f875cb8a70d7b2ab63f4bf86d697d79686b61096e6431ad01f8dc76",
-				"dweb:/ipfs/QmVH3z9jm8ebA4PV9StU5TbBDgma2KN9o6BH84Bbg16K4B"
+				"bzz-raw://a110e7256de70df3506d5bba7dab991c4acda588386a91e683f5b283bc70c1d2",
+				"dweb:/ipfs/QmfJBJdvEbiG2QQKozCQPhGsGGNY5br9Ex1NLsgu7eReS2"
 			]
 		}
 	},
