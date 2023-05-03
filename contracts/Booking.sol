@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 pragma solidity ^0.8.0;
 
@@ -12,6 +13,7 @@ contract Booking {
 
     struct Hotel {
         uint id;
+        address payable hotelOwner;
         string name;
         string city;
         Country country;
@@ -37,90 +39,117 @@ contract Booking {
         uint id;
         Hotel hotel;
         Room room;
-        address tenant;
+        address customer;
         uint price;
         uint totalNumberOfDaysOfRoomRental;
         uint startDate;
         uint endDate;
     }
 
-
-    address taxOffice;
+    address payable public customer;
 
     Reservation[] private reservation;
     uint private reservationID;
    
 
-    constructor(address _taxOffice) {
+    constructor(address payable _customer) payable {
         reservationID = 0; 
-        taxOffice = _taxOffice;
+        customer = _customer;
     }
 
-    function createReservation(uint _roomID, uint _hotelID, uint _totalNumberOfDaysOfRoomRental) payable public {
-        require(_roomID > 0 && _roomID <= prepareHotelRooms().length, "Invalid room ID");
-        require(_hotelID > 0 && _hotelID <= prepareHotels().length, "Invalid hotel ID");
+    function createReservation(uint _hotelID, uint _roomID, uint _totalNumberOfDaysOfRoomRental) payable onlyCustomer public {
+        require(checkHotelID(_hotelID), "Invalid hotel ID");
+        require(checkRoomID(_roomID), "Invalid room ID"); 
         require(_totalNumberOfDaysOfRoomRental > 0, "Total number of days of room rental should be greater than 0");
 
-        Room memory selectedRoom = prepareHotelRooms()[_roomID - 1];
         Hotel memory selectedHotel = prepareHotels()[_hotelID - 1];
+        Room memory selectedRoom = prepareHotelRooms()[_roomID - 1]; 
+        require(customer.balance > selectedRoom.ratePerDay, string(abi.encodePacked("Customer should have more than ", selectedRoom.ratePerDay, " ETH")));
 
         uint totalCostOfRentingRoom = calculatePrice(_totalNumberOfDaysOfRoomRental, selectedRoom.ratePerDay);
+        require(msg.value >= totalCostOfRentingRoom, string(abi.encodePacked("You are too poor. You sent ", Strings.toString(msg.value), " Wei but cost of room is ", Strings.toString(totalCostOfRentingRoom), " Wei"))); 
+
         incrementReservationID();
 
-        Reservation memory newReservation = Reservation(reservationID, selectedHotel, selectedRoom, msg.sender, totalCostOfRentingRoom, _totalNumberOfDaysOfRoomRental, block.timestamp, block.timestamp + _totalNumberOfDaysOfRoomRental);
+        Reservation memory newReservation = Reservation(reservationID, selectedHotel, selectedRoom, customer, totalCostOfRentingRoom, _totalNumberOfDaysOfRoomRental, block.timestamp, block.timestamp + _totalNumberOfDaysOfRoomRental);
         reservation.push(newReservation);
+
+        selectedHotel.hotelOwner.transfer(totalCostOfRentingRoom);
     }
 
     function getReservations() public view returns (Reservation[] memory) {
+        require(reservation.length > 0, "Reservations list is empty");
         return reservation;
     }
 
-    function getTaxes() public view onlyTaxOffice returns (uint taxex) {
-        uint income = calculateTotalIncome();
-        return (income * 23) / 100;
+    function getReservationsAmount() public view returns (uint reservationAmount) {
+        require(reservationID > 0, "There are no reservations");
+        return reservationID;
     }
 
-
-
-    function prepareHotelRooms() private pure returns (Room[] memory) {
-        Room[] memory hotelRooms = new Room[](6);
-        hotelRooms[0] = Room(1, "Premium 1", 200, 1, 4, true, true, true);
-        hotelRooms[1] = Room(2, "Premium 2", 200, 1, 4, true, true, false);
-        hotelRooms[2] = Room(3, "Standard 1", 100, 1, 6, true, false, true);
-        hotelRooms[3] = Room(4, "Standard 2", 200, 1, 7, false, false, false);
-        hotelRooms[4] = Room(5, "Poor 1", 50, 1, 10, false, false, true);
-        hotelRooms[5] = Room(6, "Poor 2", 50, 1, 20, false, false, false);
-        return hotelRooms;
+    function getCustomerBalance() public view returns (uint customerBalance) {
+        return customer.balance;
     }
+
+    function getHotelOwnersBalance() public view returns (uint[] memory) {
+        uint[] memory hotelOwnersBalanceToCopy = new uint[](reservation.length);
+        for (uint i = 0; i < reservation.length; i++) {
+            hotelOwnersBalanceToCopy[i] = reservation[i].hotel.hotelOwner.balance;
+        }
+
+        uint[] memory hotelOwnersBalanceToReturn = new uint[](hotelOwnersBalanceToCopy.length);
+        for (uint i = 0; i < hotelOwnersBalanceToCopy.length; i++) {
+            hotelOwnersBalanceToReturn[i] = hotelOwnersBalanceToCopy[i];
+        }
+
+        return hotelOwnersBalanceToReturn;
+    }
+
 
     function prepareHotels() private pure returns (Hotel[] memory) {
         Hotel[] memory hotels = new Hotel[](3);
-        hotels[0] = Hotel(1, "Hotel Premium", "Premium", Country.POLAND, "Glogowska", "61-500", "500-500-505", 5, true);
-        hotels[1] = Hotel(2, "Hotel Standard", "Standard", Country.POLAND, "Glogowska", "61-300", "300-300-300", 3, true);
-        hotels[2] = Hotel(3, "Hotel Poor", "Poor", Country.POLAND, "Glogowska", "61-100", "100-100-100", 1, true);
+        hotels[0] = Hotel(1, payable(0xdD870fA1b7C4700F2BD7f44238821C26f7392148), "Hotel Premium", "Premium", Country.POLAND, "Glogowska", "61-500", "500-500-505", 5, true);
+        hotels[1] = Hotel(2, payable(0x583031D1113aD414F02576BD6afaBfb302140225), "Hotel Standard", "Standard", Country.POLAND, "Glogowska", "61-300", "300-300-300", 3, true);
+        hotels[2] = Hotel(3, payable(0x4B0897b0513fdC7C541B6d9D7E929C4e5364D2dB), "Hotel Poor", "Poor", Country.POLAND, "Glogowska", "61-100", "100-100-100", 1, true);
         return hotels;
     }
 
-    function calculatePrice(uint _days, uint _ratePerDay) private pure returns (uint price) {
-        return _days * _ratePerDay;
+    function prepareHotelRooms() private pure returns (Room[] memory) {
+        Room[] memory hotelRooms = new Room[](6);
+        hotelRooms[0] = Room(1, "Premium 1", 3, 1, 4, true, true, true);
+        hotelRooms[1] = Room(2, "Premium 2", 3, 1, 4, true, true, false);
+        hotelRooms[2] = Room(3, "Standard 1", 2, 1, 6, true, false, true);
+        hotelRooms[3] = Room(4, "Standard 2", 2, 1, 7, false, false, false);
+        hotelRooms[4] = Room(5, "Poor 1", 1, 1, 10, false, false, true);
+        hotelRooms[5] = Room(6, "Poor 2", 1, 1, 20, false, false, false);
+        return hotelRooms;
+    }
+
+    event LogMyVariable(uint256 value);
+
+    function calculatePrice(uint _days, uint _ratePerDay) private returns (uint price) {
+        uint val = (_days * _ratePerDay) * 10**18;
+        emit LogMyVariable(val);
+        emit LogMyVariable(_days * _ratePerDay);
+
+        return val;
     }
 
     function incrementReservationID() private {
         reservationID++;
     }
+    
 
-    function calculateTotalIncome() private view returns (uint) {
-        uint sum = 0;
-        for (uint i = 0; i < reservation.length; i++) {
-            sum += reservation[i].price;
-        }
-        return sum;
-    }
-
-
-     modifier onlyTaxOffice() {
-        require(msg.sender == taxOffice, "Only tax office can call this function");
+    modifier onlyCustomer() {
+        require(msg.sender == customer, "Only client can call this function");
         _;
     }
 
+    function checkHotelID(uint _hotelID) private pure returns (bool) {
+       return _hotelID > 0 && _hotelID <= prepareHotels().length;
+    }
+
+    function checkRoomID(uint _roomID) private pure returns (bool) {
+       return _roomID > 0 && _roomID <= prepareHotelRooms().length;
+    }
 } 

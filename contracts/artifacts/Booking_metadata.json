@@ -8,24 +8,37 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "_taxOffice",
+						"internalType": "address payable",
+						"name": "_customer",
 						"type": "address"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "LogMyVariable",
+				"type": "event"
 			},
 			{
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_roomID",
+						"name": "_hotelID",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_hotelID",
+						"name": "_roomID",
 						"type": "uint256"
 					},
 					{
@@ -37,6 +50,45 @@
 				"name": "createReservation",
 				"outputs": [],
 				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "customer",
+				"outputs": [
+					{
+						"internalType": "address payable",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getCustomerBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "customerBalance",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getHotelOwnersBalance",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -56,6 +108,11 @@
 										"internalType": "uint256",
 										"name": "id",
 										"type": "uint256"
+									},
+									{
+										"internalType": "address payable",
+										"name": "hotelOwner",
+										"type": "address"
 									},
 									{
 										"internalType": "string",
@@ -151,7 +208,7 @@
 							},
 							{
 								"internalType": "address",
-								"name": "tenant",
+								"name": "customer",
 								"type": "address"
 							},
 							{
@@ -185,11 +242,11 @@
 			},
 			{
 				"inputs": [],
-				"name": "getTaxes",
+				"name": "getReservationsAmount",
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "taxex",
+						"name": "reservationAmount",
 						"type": "uint256"
 					}
 				],
@@ -224,12 +281,28 @@
 		"remappings": []
 	},
 	"sources": {
+		"@openzeppelin/contracts/utils/Strings.sol": {
+			"keccak256": "0xa4d1d62251f8574deb032a35fc948386a9b4de74b812d4f545a1ac120486b48a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8c969013129ba9e651a20735ef659fef6d8a1139ea3607bd4b26ddea2d645634",
+				"dweb:/ipfs/QmVhVa6LGuzAcB8qgDtVHRkucn4ihj5UZr8xBLcJkP6ucb"
+			]
+		},
+		"@openzeppelin/contracts/utils/math/Math.sol": {
+			"keccak256": "0xa1e8e83cd0087785df04ac79fb395d9f3684caeaf973d9e2c71caef723a3a5d6",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://33bbf48cc069be677705037ba7520c22b1b622c23b33e1a71495f2d36549d40b",
+				"dweb:/ipfs/Qmct36zWXv3j7LZB83uwbg7TXwnZSN1fqHNDZ93GG98bGz"
+			]
+		},
 		"contracts/Booking.sol": {
-			"keccak256": "0x1fa5e7608ad7a917f1ebaebbd94940d115f6578f76f9be38f96ba62d84dc6bc8",
+			"keccak256": "0x0c503e570c56bfde6c5344d39a5ca526c2a0216a1a5fec8648e91906c75fe9c8",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://a110e7256de70df3506d5bba7dab991c4acda588386a91e683f5b283bc70c1d2",
-				"dweb:/ipfs/QmfJBJdvEbiG2QQKozCQPhGsGGNY5br9Ex1NLsgu7eReS2"
+				"bzz-raw://9db834021a92cad8e7c02bbebc8500461e515f2ee071e5bc3765a363196fc6e8",
+				"dweb:/ipfs/QmbPkqpWA1P3GNdU2HGRWLVWALZa8qmsZmhKfeFdjMo16a"
 			]
 		}
 	},
